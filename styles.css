@@ -1,0 +1,175 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+/* Apply styles */
+body {
+    font-family: 'Secular One', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+    position: relative; /* Ensure relative positioning for containing absolutely positioned elements */
+}
+
+header {
+    background-color: #b3e5fc;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 2rem;
+    height: 50vh;  /* Make the header at least half the desktop screen height */
+    position: relative;
+    box-sizing: border-box;
+}
+
+.header-content {
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #6a1b9a;  /* Purple color */
+}
+
+.subtitle {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    color: #555;  /* Purple color */
+}
+
+.description {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;  /* Purple color */
+}
+
+.header-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.header-image img {
+    width: 400px;
+    height: auto;
+}
+
+main {
+    padding: 2rem;
+    position: relative;
+}
+
+.projects {
+    text-align: center;
+}
+
+.projects h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #6a1b9a;  /* Purple color */
+}
+
+.project-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.project {
+    background-color: #ffffff;
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    max-width: 400px;
+    text-align: left;
+    transition: transform 0.2s;
+}
+
+.project:hover {
+    transform: scale(1.05);
+}
+
+.project h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #6a1b9a;  /* Purple color */
+}
+
+.project p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.project a {
+    display: block;
+    margin-top: 1rem;
+    color: #9c27b0;  /* Lighter purple color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+footer h3 {
+  font-size: 1.5rem; /* Adjust the font size for the contact header */
+  color: #6a1b9a;  /* Purple color */
+}
+
+footer .contact-info {
+    font-size: 1rem;
+    color: #6a1b9a;  /* Purple color */
+}
+
+footer .contact-info a {
+    color: #555;  /* Purple color */
+    text-decoration: none;
+}
+
+.cat-image {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  text-align: left;
+}
+
+.cat-image img {
+  width: 150px; /* Adjust the width of the cat image */
+  height: auto;
+}
+
+/* Styling for blue rectangle */
+.blue-rectangle {
+    background-color: #b3e5fc;
+    width: 100%;
+    height: calc(100vh - 50vh - 12rem); /* Calculate height based on viewport */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.resume-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #9c27b0;  /* Lighter purple color */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Copyright notice */
+.footer-copyright {
+  font-size: 0.1;
+  color: #ad1919;
+  margin-top: 1rem;
+}

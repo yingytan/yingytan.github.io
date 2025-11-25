@@ -3,74 +3,730 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yingyin Tan's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <title>Yingyin Tan - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #faf9f6;
+            --bg-secondary: #f5f3ee;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666;
+            --accent: #d4a574;
+            --accent-dark: #b8845f;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 249, 246, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent-dark);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: var(--accent-dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: var(--bg-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .passions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .passion-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .passion-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .passion-item h3 {
+            color: var(--accent-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-timeline {
+            margin-top: 3rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+            max-width: 800px;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0;
+            width: 10px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .experience-item h3 {
+            color: var(--accent-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hobbies-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .hobby-tag {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-tag:hover {
+            transform: scale(1.1);
+        }
+
+        .resume-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .resume-button {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            background: var(--accent-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 20px rgba(184, 132, 95, 0.3);
+        }
+
+        .resume-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(184, 132, 95, 0.4);
+        }
+
+        footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .fade-out {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-out.hidden {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .about-roles {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 2rem;
+            row-gap: 0.5rem;
+            margin: 0.75rem 0 1.5rem;
+        }
+
+        .about-roles ul {
+            list-style: disc;
+            padding-left: 1.2rem;
+            margin: 0;
+        }
+
+        .about-roles li {
+            margin-bottom: 0.4rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-roles {
+                grid-template-columns: 1fr; /* stack nicely on mobile */
+            }
+        }
+
+        .about-image {
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden; /* IMPORTANT so image fits the rounded corners */
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Keeps proportions and fills nicely */
+
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>yingyin tan</h1>
-            <p class="subtitle">mechanical engineering @ caltech</p>
-            <p class="description">passionate about product management & building software to better the world </p>
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#passions">Passions</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#resume">Resume</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content fade-in fade-out">
+            <h1>Hello, I'm Ying!</h1>
+            <p><strong>Mechanical Engineering @ Caltech </strong><br> & Product Design Hobbyist</p>
+            <p><em>Passionate about Product Management <br> & Building Technology to Better the World</em></p>
+            <a href="#projects" class="cta-button">View My Work</a>
         </div>
-        <div class="header-image">
-            <img src="kiki.png" alt="Kiki from Kiki's Delivery Service">
-        </div>
-    </header>
-    <main>
-        <section class="projects">
-            <h2>projects</h2>
-            <div class="project-row">
-                <div class="project">
-                    <h3>a3traeus</h3>
-                    <p>A multiplayer space game with a physics engine.</p>
-                    <p>Programmed in C with SDL, Emscripten, and GitLab.</p>
-                    <a href="https://gitfront.io/r/yingt/Ef5P7dciCAdK/astraeus/">View Source Code</a>
+    </section>
+
+    <section id="about">
+        <h2 class="fade-in">About Me</h2>
+        <div class="about-content">
+            <div class="about-text slide-left">
+                <p><strong>Welcome! </strong>I'm an engineer excited by how technology turns complex problems into human-centered solutions. At my core, I’m obsessed with product design.</p> 
+                <p>My path has been anything but linear; <em> and that’s what I love about it.</em> <br> A few roles I've taken include: </p>
+                <div class="about-roles">
+                    <ul>
+                        <li>International ML Researcher for Personalized Stroke Rehab</li>
+                        <li>Bank Branch VP & Teller</li>
+                        <li>STEM Teaching Assistant</li>
+                    </ul>
+                    <ul>
+                        <li>EdTech Marketing Creator</li>
+                        <li>Data Science Intern</li>
+                        <li>Electrical+Biology Scientist Reducing Chick Culling</li>
+                    </ul>
                 </div>
-                <div class="project">
-                    <h3>natural product synthesis</h3>
-                    <p>Researched at the Caltech Stoltz Lab.</p>
-                    <p>Researched the organic chemical synthesis of these intermediates w/ crystallography technology.</p>
-                    <a href="https://issuu.com/blueprint.stemchats/docs/i-stem_scholars_vol._1_special_edition_2021_3_">Read Research Paper</a>
+
+                <p>Each experience has deepened my understanding of the users, teams, stories, and delivery behind impactful products.</p> 
+                <p>When I’m not brainstorming new solutions, you’ll find me invested in traveling, digital design, culinary arts, or crafting hardware prototypes at the Caltech machine shop!</p>
+            </div>
+            <div class="about-image slide-right">
+                <img src="planetary.jpeg" alt="Yingyin Tan Picture">
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="fade-in">Technical Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card scale-in">
+                <h3>Machined ME13 Trophy</h3>
+                <p>A fully machined aluminum trophy created from SolidWorks drawings and produced with precision tolerancing, surface-finish control, and multi-step fabrication.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Mill</span>
+                    <span class="tech-tag">Lathe</span>
+                    <span class="tech-tag">Waterjet</span>
+                    <span class="tech-tag">Laser Cut</span>
+                    <span class="tech-tag">3D Printing</span>
+                    <span class="tech-tag">SolidWorks</span>
                 </div>
             </div>
-            <div class="project-row">
-                <div class="project">
-                    <h3>in-ovo egg sexing</h3>
-                    <p>Researched at Caltech Bronner Lab using LED/Laser Constr Imaging.</p>
-                    <p>Trained machine learning AI to sex eggs from blood vessel patterns.</p>
-                    <a href="https://docs.google.com/document/d/10VI9DTu4BRjQrIP3ZdR7NawUlGOXPIoddTZs2-5nBgk/edit?usp=sharing">View Research Poster</a>
-                </div>
-                <div class="project">
-                    <h3>scholar success portal</h3>
-                    <p>Internship project at College Match.</p>
-                    <p>Developed web portal for opportunities and network utilizing Airtable database for 2300+ members.</p>
-                    <a href="https://ssportal.softr.app/">View Site</a>
+            <div class="project-card scale-in">
+                <h3>Autonomous Robotic Car</h3>
+                <p>An autonomous robotic car that uses ROS-based sensor fusion, lane detection, and obstacle avoidance, paired with NFC target tracking and adaptive PID control for precise navigation.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">ROS</span>
+                    <span class="tech-tag">NFC</span>
+                    <span class="tech-tag">Threading</span>
+                    <span class="tech-tag">Raspberry Pi</span>
+                    <span class="tech-tag">CAD</span>
                 </div>
             </div>
-        </section>
-        <!-- Cat image placed in the middle of the main section -->
-        <div class="cat-image">
-            <img src="cat.png" alt="Cat from Kiki's Delivery Service">
-        </div>  
-        </section>
-        <!-- Move View Resume link here -->
-        <a href="https://docs.google.com/document/d/10VI9DTu4BRjQrIP3ZdR7NawUlGOXPIoddTZs2-5nBgk/edit?usp=sharing" class="resume-link">View Resume</a>
-    
-    </main>
+            <div class="project-card scale-in">
+                <h3>Smile Detection Photo Drone</h3>
+                <p>An autonomous selfie-taking drone integrating real-time face, smile, and hand-gesture detection with computer-controlled flight, enabling automatic photo capture through live vision tracking.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Djitellopy</span>
+                    <span class="tech-tag">Pyserial</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">Arduino</span>
+                </div>
+            </div>
+            <div class="project-card scale-in">
+                <h3>Autonomated Gimbal Object Detector</h3>
+                <p>An autonomous vision-guided gimbal that uses HSV-based color segmentation and contour tracking, paired with dual-axis motor control and spline-optimized motion for smooth, precise object following.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Raspberry Pi</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">CAD</span>
+                </div>
+            </div>
+            <div class="project-card scale-in">
+                <h3>a5traeμs</h3>
+                <p>A multiplayer space game, featuring a custom physics engine with collision detection, force modeling, scene management, efficient memory handling, and responsive keyboard/mouse controls.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">C</span>
+                    <span class="tech-tag">Enscripten</span>
+                    <span class="tech-tag">SDL2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="passions">
+        <h2 class="fade-in">Most Recent Expeditions</h2>
+        <div class="passions-grid">
+            <div class="passion-item fade-in">
+                <div class="passion-icon">💻</div>
+                <h3>Conclusion of Summer Research at Tsinghua University</h3>
+                <p>surf presentation & final paper</p>
+            </div>
+            <div class="passion-item fade-in">
+                <div class="passion-icon">🌱</div>
+                <h3>Explore Caltech: Robotics Team</h3>
+                <p>teaching the community robotics!</p>
+            </div>
+            <div class="passion-item fade-in">
+                <div class="passion-icon">🌱</div>
+                <h3>Visit to Linkin National Lab & HKSTP</h3>
+                <p>shanghai!</p>
+            </div>
+            <div class="passion-item fade-in">
+                <div class="passion-icon">🤝</div>
+                <h3>Panda Bound 2025 SA Launch</h3>
+                <p>another year!</p>
+            </div>
+            <div class="passion-item fade-in">
+                <div class="passion-icon">🤝</div>
+                <h3>Intelligent Securities Conclusion</h3>
+                <p>presented to eric schimdt!</p>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="experience">
+        <h2 class="fade-in">Technical Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item slide-left">
+                <h3>ML Researcher @ Tsinghua University (Beijing, CN)</h3>
+                <div class="experience-date">2025</div>
+                <p>Designed and evaluated user-centered gait assistance strategies for post-stroke patients using RL-based simulation environments.
+                    Created and analyzed graph visualizations across 380+ training environments in MuJoCo to identify clear comparisons between the different assistance techniques. </p>
+            </div>
+            <div class="experience-item slide-left">
+                <h3>Caltech CS & Math Teaching Assistant (Pasadena, CA)</h3>
+                <div class="experience-date">2024-2025</div>
+                <p> Debugged projects and pipeline tests prior to student distribution. 
+                    Provided detailed feedback on 800+ problem sets/quizzes. 
+                    Summarized complex concepts for 300+ students in office hours.</p>
+            </div>
+            <div class="experience-item slide-left">
+                <h3>Data Science Intern @ College Match LA (Los Angeles, CA)</h3>
+                <div class="experience-date">2023-2024</div>
+                <p>Designed, developed, and launched the Scholar Success website with career resources, member profiles, and automated emails to connect 2,300+ stakeholders. 
+                    Integrated Airtable and Softr for accurate, real-time data sync. Documented implementation processes to improve cross collaboration across staff teams.
+                </p>
+            </div>
+            <div class="experience-item slide-left">
+                <h3>Researcher @ Caltech Bronner & Yang Labs (Pasadena, CA)</h3>
+                <div class="experience-date">2023</div>
+                <p>Assisted in runnning a MATLAB-based ML classification pipeline using LED/Laser Contrast Imaging for non-invasive egg sexing.
+                    Collected large-scale datasets of DNA signal intensity & blood flow velocity. Visualized data with IKOSA AI image analysis.
+</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="hobbies">
+        <h2 class="fade-in">Hobbies</h2>
+        <div class="hobbies-list">
+            <span class="hobby-tag scale-in">✈️ Traveling</span>
+            <span class="hobby-tag scale-in">📷 Photography</span>
+            <span class="hobby-tag scale-in">🖼️ Digital Design</span>
+            <span class="hobby-tag scale-in">🍳 Culinary Arts</span>
+            <span class="hobby-tag scale-in">⚙️ Hardware Design</span>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2 class="fade-in">Contact Me</h2>
+        <div class="resume-section fade-in">
+            <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 4rem;">
+                <strong> ying@caltech.edu </strong> <br> 
+                ying [at] caltech [dot] edu
+            </p>
+            <a href="mailto:ying@caltech.edu" class="resume-button">Email Now!</a>
+        </div>
+    </section>
+
     <footer>
-        <h3>Contact:</h3>
-        <div class="contact-info">
-            <p>email: <a href="mailto:ying@caltech.edu">ying@caltech.edu</a></p>
-            <p>linkedin: <a href="https://www.linkedin.com/in/yingyintan">linkedin.com/in/yingyintan</a></p>
+        <p>&copy; 2025 Yingyin Tan. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/yingyintan/" title="LinkedIn">🔗</a>
+            <a href="mailto:ying@caltech.edu" title="Email">📧</a>
         </div>
-        <p class="copyright">&copy; Yingyin Tan 2024</p>
     </footer>
-    <!-- Blue rectangle -->
-    <div class="blue-rectangle"></div>
+
+    <script>
+    // navigation scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-left, .slide-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // parallax + fade out effect for hero section 
+        const hero = document.querySelector('#hero');
+        const heroContent = document.querySelector('.hero-content');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+
+            if (hero && scrolled < hero.offsetHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+
+            if (hero && heroContent) {
+                const triggerPoint = hero.offsetHeight * 0.6; 
+                if (scrolled > triggerPoint) {
+                    heroContent.classList.add('hidden'); 
+                } else {
+                    heroContent.classList.remove('hidden');
+                }
+            }
+        });
+
+        function fadeOut(element) {
+            element.classList.add("hidden");
+        }
+    </script>
 </body>
 </html>
-
